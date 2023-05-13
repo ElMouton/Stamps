@@ -20,7 +20,7 @@ public class Main extends Application {
         PizzaFolie pizzaFolie = new PizzaFolie();
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("FXML/VueGlobale.fxml"));
+        loader.setLocation(getClass().getResource("/FXML/VueGlobale.fxml"));
         loader.setControllerFactory(iC->new VueGlobale(pizzaFolie));
         root.setCenter(loader.load());
 
