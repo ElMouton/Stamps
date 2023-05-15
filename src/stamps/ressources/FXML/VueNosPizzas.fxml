@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,7 +15,7 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="400.0">
          <children>
-            <Label prefWidth="400.0" text="Base Tomate" textAlignment="CENTER">
+            <Label prefWidth="400.0" text="Base Tomate">
                <font>
                   <Font size="33.0" />
                </font></Label>
@@ -33,9 +34,14 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#FilterButton" prefWidth="200.0" text="Filtre" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ReturnButton" prefWidth="200.0" text="Retour" />
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ReloadButton" prefWidth="200.0" text="Recharger" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ReturnButton" prefWidth="200.0" text="Retour" />
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#FilterButton" prefWidth="200.0" text="Filtrer" />
+                  <ChoiceBox fx:id="choixFiltre" prefWidth="150.0" />
+               </children>
+            </VBox>
          </children>
          <opaqueInsets>
             <Insets />
