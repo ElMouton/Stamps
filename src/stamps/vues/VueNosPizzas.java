@@ -24,6 +24,9 @@ public class VueNosPizzas {
     }
 
     private void reload(){
+        this.PizzasTomate.getChildren().clear();
+        this.PizzasCreme.getChildren().clear();
+
         Iterator<Pizza> it = pizzaFolie.nosPizzas();
 
         int iTomate = 0, jTomate = 0;

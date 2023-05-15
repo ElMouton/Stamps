@@ -1,8 +1,9 @@
 package stamps;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Pizza {
+public class Pizza implements Iterable<String>{
     private String nom;
     private Base base;
     private ArrayList<String> ingredients;
@@ -10,9 +11,14 @@ public class Pizza {
     public Pizza(String nom) {
         this.nom = nom;
     }
-    public Pizza(String nom, Base base) {
+    public Pizza(String nom, Base base, String... ing) {
         this.nom = nom;
         this.base = base;
+        this.ingredients = new ArrayList<>();
+
+        for(int i = 0; i < ing.length; i++){
+            this.ingredients.add(ing[i]);
+        }
     }
 
     public void choixBase(Base base){
@@ -32,5 +38,10 @@ public class Pizza {
     @Override
     public String toString() {
         return this.nom;
+    }
+
+    @Override
+    public Iterator<String> iterator() {
+        return this.ingredients.iterator();
     }
 }
