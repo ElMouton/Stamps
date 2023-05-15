@@ -12,7 +12,7 @@
          <children>
             <ImageView fitHeight="280.0" fitWidth="300.0" pickOnBounds="true">
                <image>
-                  <Image url="@../image/pizza1.jpeg" />
+                  <Image url="@../image/pizza2.jpg" />
                </image>
             </ImageView>
             <Button mnemonicParsing="false" onAction="#ButtonNosPizzas" prefHeight="100.0" prefWidth="300.0" text="Nos Pizzas" />
@@ -22,7 +22,7 @@
          <children>
             <ImageView fitHeight="280.0" fitWidth="300.0" pickOnBounds="true">
                <image>
-                  <Image url="@../image/pizza2.jpg" />
+                  <Image url="@../image/pizza1.jpeg" />
                </image>
             </ImageView>
             <Button mnemonicParsing="false" onAction="#ButtonTesPizzas" prefHeight="100.0" prefWidth="300.0" text="Tes Pizzas" />

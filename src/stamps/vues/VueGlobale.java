@@ -1,6 +1,7 @@
 package stamps.vues;
 
 import javafx.fxml.FXML;
+import stamps.Page;
 import stamps.PizzaFolie;
 
 public class VueGlobale {
@@ -11,11 +12,11 @@ public class VueGlobale {
 
     @FXML
     public void ButtonNosPizzas(){
-        System.out.println("Nos Pizzas");
+        pizzaFolie.changementPage(Page.NOSPIZZAS);
     }
 
     @FXML
     public void ButtonTesPizzas(){
-        System.out.println("Tes Pizzas");
+        pizzaFolie.changementPage(Page.TESPIZZAS);
     }
 }
