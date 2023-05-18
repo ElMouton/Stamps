@@ -13,21 +13,24 @@ import java.util.Iterator;
 
 public class VueNosPizzas {
     private PizzaFolie pizzaFolie;
+    public int timePassed;
 
     @FXML
-    private GridPane PizzasTomate;
+    private GridPane pizzasTomate;
     @FXML
-    private GridPane PizzasCreme;
+    private GridPane pizzasCreme;
     @FXML
     private ChoiceBox<String> choixFiltre;
 
+
     public VueNosPizzas(PizzaFolie pizzaFolie) {
         this.pizzaFolie = pizzaFolie;
+        this.timePassed = 0;
     }
 
     private void reload(String... filtre){
-        this.PizzasTomate.getChildren().clear();
-        this.PizzasCreme.getChildren().clear();
+        this.pizzasTomate.getChildren().clear();
+        this.pizzasCreme.getChildren().clear();
         this.choixFiltre.getItems().clear();
 
         Iterator<Pizza> it = pizzaFolie.nosPizzas();
@@ -41,7 +44,7 @@ public class VueNosPizzas {
                 for(String ing : p){
                     if(ing.equals(ingFiltre)){
                         if(p.getBase() == Base.CREME){
-                            PizzasCreme.add(new Label(p.toString()), iCreme, jCreme);
+                            pizzasCreme.add(new Label(p.toString()), iCreme, jCreme);
 
                             iCreme++;
                             if(iCreme == 2){
@@ -50,7 +53,7 @@ public class VueNosPizzas {
                             }
 
                         }else{
-                            PizzasTomate.add(new Label(p.toString()), iTomate, jTomate);
+                            pizzasTomate.add(new Label(p.toString()), iTomate, jTomate);
 
                             iTomate++;
                             if(iTomate == 2){
@@ -64,7 +67,7 @@ public class VueNosPizzas {
 
             if(filtre.length == 0){
                 if(p.getBase() == Base.CREME){
-                    PizzasCreme.add(new Label(p.toString()), iCreme, jCreme);
+                    pizzasCreme.add(new Label(p.toString()), iCreme, jCreme);
 
                     iCreme++;
                     if(iCreme == 2){
@@ -73,7 +76,7 @@ public class VueNosPizzas {
                     }
 
                 }else{
-                    PizzasTomate.add(new Label(p.toString()), iTomate, jTomate);
+                    pizzasTomate.add(new Label(p.toString()), iTomate, jTomate);
 
                     iTomate++;
                     if(iTomate == 2){
@@ -101,7 +104,10 @@ public class VueNosPizzas {
     }
 
     @FXML
-    void ReloadButton(){
-        this.reload();
+    void mouseEntered(){
+        if(timePassed == 0){
+            this.reload();
+            timePassed++;
+        }
     }
 }
