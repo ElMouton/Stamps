@@ -1,10 +1,13 @@
 package stamps;
 
+import stamps.outils.GestionnaireIdentifiants;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Pizza implements Iterable<String>{
     private String nom;
+    private int id;
     private Base base;
     private ArrayList<String> ingredients;
 
@@ -12,6 +15,7 @@ public class Pizza implements Iterable<String>{
         this.nom = nom;
     }
     public Pizza(String nom, Base base, String... ing) {
+        this.id = GestionnaireIdentifiants.getInstance().getIdPizzas();
         this.nom = nom;
         this.base = base;
         this.ingredients = new ArrayList<>();
@@ -33,6 +37,14 @@ public class Pizza implements Iterable<String>{
         for (int i = 0; i < ingredient.length; i++) {
             this.ingredients.add(ingredient[i]);
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     @Override
