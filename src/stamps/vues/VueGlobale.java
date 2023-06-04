@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import stamps.Base;
 import stamps.Ecouteur.EcouteurPizzas;
 import stamps.Pizza;
@@ -42,6 +43,7 @@ public class VueGlobale {
 
             Label name = new Label(p.toString());
             name.setId(p.getId() + "");
+            name.setFont(Font.font("Apple Chancery"));
             name.setOnMouseClicked(new EcouteurPizzas(p, pizzaFolie));
 
             for(String ingFiltre : filtre){
