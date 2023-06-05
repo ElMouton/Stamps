@@ -1,14 +1,14 @@
 package stamps.vues;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import stamps.Ecouteur.EcouteurIngredient;
 import stamps.Pizza;
 import stamps.PizzaFolie;
 
@@ -28,7 +28,7 @@ public class VueDetail {
     @FXML
     private Label pizzaBase;
     @FXML
-    private VBox ingredientList;
+    private ListView<Label> ingredientList;
     @FXML
     private BorderPane borderScene;
 
@@ -41,17 +41,24 @@ public class VueDetail {
         pizzaName.setText(p.getNom());
         pizzaBase.setText("Base : " + p.getBase());
 
-        ingredientList.getChildren().clear();
+        ingredientList.getItems().clear();
         for(String ingredient : p){
-            ingredientList.getChildren().add(new Label("- " + ingredient));
+            Label l = new Label(ingredient);
+            l.setOnMouseClicked(mouseEvent -> {
+                new EcouteurIngredient(pizzaFolie, p);
+                this.reload();
+            });
+            ingredientList.getItems().add(l);
         }
         this.pizzaImage.setImage(p.getIm());
     }
 
     private void reload(){
-        ingredientList.getChildren().clear();
+        ingredientList.getItems().clear();
         for(String ingredient : p){
-            ingredientList.getChildren().add(new Label("- " + ingredient));
+            Label l = new Label(ingredient);
+            l.setOnMouseClicked(new EcouteurIngredient(pizzaFolie, p));
+            ingredientList.getItems().add(l);
         }
     }
 

@@ -58,6 +58,10 @@ public class Pizza implements Iterable<String>{
         }
     }
 
+    public void enleverIngredient(String ing){
+        this.ingredients.remove(ing);
+    }
+
     public int getId() {
         return id;
     }
