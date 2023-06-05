@@ -53,7 +53,7 @@ public class VueDetail {
         this.pizzaImage.setImage(p.getIm());
     }
 
-    private void reload(){
+    private void reloadPage(){
         ingredientList.getItems().clear();
         for(String ingredient : p){
             Label l = new Label(ingredient);
@@ -83,7 +83,7 @@ public class VueDetail {
 
         result.ifPresent(nom::set);
         p.choixIngredient(nom.get());
-        reload();
+        reloadPage();
     }
 
     @FXML
@@ -100,6 +100,11 @@ public class VueDetail {
         result.ifPresent(nom::set);
         p.choixIngredient(nom.get());
         pizzaFolie.ajouterIngredient(nom.get());
-        reload();
+        reloadPage();
+    }
+
+    @FXML
+    void reload(){
+        reloadPage();
     }
 }
