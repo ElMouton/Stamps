@@ -23,11 +23,11 @@ public class PizzaFolie implements Iterable<String>{
     }
 
     public void ajoutNosPizzas(){
-        Pizza p1 = new Pizza("3 Fromages", Base.CREME, "mozzarella", "oignon", "emmental", "roquefort");
-        Pizza p2 = new Pizza( "Saumon", Base.CREME, "saumon", "ciboulette", "mozzarella");
-        Pizza p4 = new Pizza( "Chèvre miel", Base.CREME, "gruyère", "chèvre", "miel");
-        Pizza p3 = new Pizza( "Chorizo", Base.TOMATE, "chorizo", "oignon", "gruyère");
-        Pizza p5 = new Pizza( "Texane", Base.TOMATE, "boeuf", "bacon", "oignon", "gruyère");
+        Pizza p1 = new Pizza("3 Fromages", Base.CREME, "image/pizzas/3From.png", "mozzarella", "oignon", "emmental", "roquefort");
+        Pizza p2 = new Pizza( "Saumon", Base.CREME, "image/pizzas/saumon.png", "saumon", "ciboulette", "mozzarella");
+        Pizza p4 = new Pizza( "Chèvre miel", Base.CREME, "image/pizzas/chevreMiel.png", "gruyère", "chèvre", "miel");
+        Pizza p3 = new Pizza( "Chorizo", Base.TOMATE, "image/pizzas/chorizo.png", "chorizo", "oignon", "gruyère");
+        Pizza p5 = new Pizza( "Texane", Base.TOMATE, "image/pizzas/texane.png", "boeuf", "bacon", "oignon", "gruyère");
 
         this.pizzas.add(p1);
         this.pizzas.add(p2);

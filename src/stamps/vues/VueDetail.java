@@ -32,16 +32,7 @@ public class VueDetail {
         this.p = p;
     }
 
-    @FXML
-    void suppPizza(){
-        stage = (Stage) borderScene.getScene().getWindow();
-        this.pizzaFolie.retirerPizzas(this.p);
-
-        stage.close();
-    }
-
-    @FXML
-    public void mvmtMouse(){
+    public void initialize(){
         pizzaName.setText(p.getNom());
         pizzaBase.setText("Base : " + p.getBase());
 
@@ -49,6 +40,14 @@ public class VueDetail {
         for(String ingredient : p){
             ingredientList.getChildren().add(new Label("- " + ingredient));
         }
+    }
+
+    @FXML
+    void suppPizza(){
+        stage = (Stage) borderScene.getScene().getWindow();
+        this.pizzaFolie.retirerPizzas(this.p);
+
+        stage.close();
     }
 
 }

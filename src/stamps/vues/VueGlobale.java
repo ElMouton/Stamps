@@ -1,16 +1,24 @@
 package stamps.vues;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import stamps.Base;
 import stamps.Ecouteur.EcouteurPizzas;
 import stamps.Pizza;
 import stamps.PizzaFolie;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Iterator;
+import java.util.Locale;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class VueGlobale {
     private PizzaFolie pizzaFolie;
@@ -21,12 +29,56 @@ public class VueGlobale {
     @FXML
     private GridPane pizzasCreme;
     @FXML
-    private ChoiceBox<String> choixFiltre;
+    private ComboBox<Label> choixFiltre;
 
 
     public VueGlobale(PizzaFolie pizzaFolie) {
         this.pizzaFolie = pizzaFolie;
         this.timePassed = 0;
+    }
+
+    public void initialize(){
+        this.pizzasTomate.getChildren().clear();
+        this.pizzasCreme.getChildren().clear();
+        this.choixFiltre.getItems().clear();
+
+        Iterator<Pizza> it = pizzaFolie.pizzaIterator();
+
+        int iTomate = 0, jTomate = 0;
+        int iCreme = 0, jCreme = 0;
+        while (it.hasNext()){
+            Pizza p = it.next();
+
+            ImageView pi = new ImageView(p.getIm());
+
+            pi.setFitWidth(130);
+            pi.setFitHeight(130);
+
+            pi.setId(p.getId() + "");
+            pi.setOnMouseClicked(new EcouteurPizzas(p, pizzaFolie));
+                if(p.getBase() == Base.CREME){
+                    pizzasCreme.add(pi, iCreme, jCreme);
+                    iCreme++;
+                    if(iCreme == 3){
+                        iCreme = 0;
+                        jCreme++;
+                    }
+
+                }else{
+                    pizzasTomate.add(pi, iTomate, jTomate);
+                    iTomate++;
+                    if(iTomate == 3){
+                        iTomate = 0;
+                        jTomate++;
+                    }
+                }
+        }
+
+        for(String ing : this.pizzaFolie){
+            Label name = new Label(ing);
+            name.setFont(Font.font("Abyssinica SIL"));
+            this.choixFiltre.getItems().add(name);
+        }
     }
 
     private void reload(String... filtre){
@@ -41,26 +93,29 @@ public class VueGlobale {
         while (it.hasNext()){
             Pizza p = it.next();
 
-            Label name = new Label(p.toString());
-            name.setId(p.getId() + "");
-            name.setFont(Font.font("Apple Chancery"));
-            name.setOnMouseClicked(new EcouteurPizzas(p, pizzaFolie));
+            ImageView pi = new ImageView(p.getIm());
+
+            pi.setFitWidth(130);
+            pi.setFitHeight(130);
+
+            pi.setId(p.getId() + "");
+            pi.setOnMouseClicked(new EcouteurPizzas(p, pizzaFolie));
 
             for(String ingFiltre : filtre){
                 for(String ing : p){
                     if(ing.equals(ingFiltre)){
                         if(p.getBase() == Base.CREME){
-                            pizzasCreme.add(name, iCreme, jCreme);
+                            pizzasCreme.add(pi, iCreme, jCreme);
                             iCreme++;
-                            if(iCreme == 2){
+                            if(iCreme == 3){
                                 iCreme = 0;
                                 jCreme++;
                             }
 
                         }else{
-                            pizzasTomate.add(name, iTomate, jTomate);
+                            pizzasTomate.add(pi, iTomate, jTomate);
                             iTomate++;
-                            if(iTomate == 2){
+                            if(iTomate == 3){
                                 iTomate = 0;
                                 jTomate++;
                             }
@@ -71,17 +126,17 @@ public class VueGlobale {
 
             if(filtre.length == 0){
                 if(p.getBase() == Base.CREME){
-                    pizzasCreme.add(name, iCreme, jCreme);
+                    pizzasCreme.add(pi, iCreme, jCreme);
                     iCreme++;
-                    if(iCreme == 2){
+                    if(iCreme == 3){
                         iCreme = 0;
                         jCreme++;
                     }
 
                 }else{
-                    pizzasTomate.add(name, iTomate, jTomate);
+                    pizzasTomate.add(pi, iTomate, jTomate);
                     iTomate++;
-                    if(iTomate == 2){
+                    if(iTomate == 3){
                         iTomate = 0;
                         jTomate++;
                     }
@@ -90,32 +145,73 @@ public class VueGlobale {
         }
 
         for(String ing : this.pizzaFolie){
-            this.choixFiltre.getItems().add(ing);
+            Label name = new Label(ing);
+            name.setFont(Font.font("Abyssinica SIL"));
+            this.choixFiltre.getItems().add(name);
         }
     }
 
     @FXML
     void FilterButton(){
-        String filtre = this.choixFiltre.getValue();
-        this.reload(filtre);
+        String filtre = this.choixFiltre.getValue().getText();
+        if(filtre != null){
+            this.reload(filtre);
+        }
     }
 
     @FXML
     void ajoutPizzas(){
-        this.pizzaFolie.ajouterPizzas(new Pizza("Ajout", Base.CREME, "hehe"));
-        this.reload();
-    }
+        String nom = demandeNom();
+        String base = demandeBase();
+        File image = demandeImage();
 
-    @FXML
-    void mouseEntered(){
-        if(timePassed == 0){
-            this.reload();
-            timePassed++;
-        }
+        this.pizzaFolie.ajouterPizzas(new Pizza(nom, Base.valueOf(base.toUpperCase(Locale.ROOT)), image));
+        this.reload();
     }
 
     @FXML
     void reloadButton(){
         this.reload();
+    }
+
+    private String demandeNom(){
+        AtomicReference<String> nom = new AtomicReference<>();
+        TextInputDialog dialog = new TextInputDialog();
+
+        dialog.setTitle("Nom de la pizza");
+        dialog.setHeaderText("Entrer le nom de la pizza:");
+        dialog.setContentText("Nom:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(nom::set);
+        return nom.get();
+    }
+
+    private String demandeBase(){
+        AtomicReference<String> nom = new AtomicReference<>();
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Tomate","Tomate",  "Creme");
+        dialog.setTitle("Base de la pizza");
+        dialog.setHeaderText("Choisissez la base de la pizza:");
+        dialog.setContentText("Base:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        result.ifPresent(nom::set);
+        return nom.get();
+    }
+
+    private File demandeImage(){
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(new Stage());
+
+        try {
+            System.out.println(file.toURI().toURL().toExternalForm());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return file;
     }
 }

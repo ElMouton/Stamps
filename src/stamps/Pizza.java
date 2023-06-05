@@ -1,7 +1,10 @@
 package stamps;
 
+import javafx.scene.image.Image;
 import stamps.outils.GestionnaireIdentifiants;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -10,18 +13,34 @@ public class Pizza implements Iterable<String>{
     private int id;
     private Base base;
     private ArrayList<String> ingredients;
+    private Image im;
 
     public Pizza(String nom) {
         this.nom = nom;
     }
-    public Pizza(String nom, Base base, String... ing) {
+    public Pizza(String nom, Base base, String im, String... ing) {
         this.id = GestionnaireIdentifiants.getInstance().getIdPizzas();
         this.nom = nom;
         this.base = base;
         this.ingredients = new ArrayList<>();
 
+        this.im = new Image(im);
+
         for(int i = 0; i < ing.length; i++){
             this.ingredients.add(ing[i]);
+        }
+    }
+
+    public Pizza(String nom, Base base, File im) {
+        this.id = GestionnaireIdentifiants.getInstance().getIdPizzas();
+        this.nom = nom;
+        this.base = base;
+        this.ingredients = new ArrayList<>();
+        System.out.println(im);
+        try {
+            this.im = new Image(im.toURI().toURL().toExternalForm());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -45,6 +64,14 @@ public class Pizza implements Iterable<String>{
 
     public String getNom() {
         return nom;
+    }
+
+    public Image getIm() {
+        return im;
+    }
+
+    public ArrayList<String> getIngredients() {
+        return ingredients;
     }
 
     @Override

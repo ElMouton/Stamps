@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import stamps.vues.VueGlobale;
+import stamps.vues.VueMenu;
 
 import java.io.IOException;
 
@@ -20,12 +21,16 @@ public class Main extends Application {
 
 
         BorderPane root = new BorderPane();
-        FXMLLoader loader = new FXMLLoader();
 
-        loader.setLocation(getClass().getResource("/FXML/VueGlobale.fxml"));
-        loader.setControllerFactory(iC->new VueGlobale(pizzaFolie));
+        FXMLLoader loaderGlob = new FXMLLoader();
+        loaderGlob.setLocation(getClass().getResource("/FXML/VueGlobale.fxml"));
+        loaderGlob.setControllerFactory(iC->new VueGlobale(pizzaFolie));
+        root.setCenter(loaderGlob.load());
 
-        root.setCenter(loader.load());
+        FXMLLoader loaderMenu = new FXMLLoader();
+        loaderMenu.setLocation(getClass().getResource("/FXML/VueMenu.fxml"));
+        loaderMenu.setControllerFactory(iC->new VueMenu(pizzaFolie));
+        root.setTop(loaderMenu.load());
 
         stage.setScene(new Scene(root, 1000, 700));
         stage.setTitle("PizzaFolie");

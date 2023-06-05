@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.input.KeyCodeCombination?>
+
+<MenuBar xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="stamps.vues.VueMenu">
+  <menus>
+    <Menu mnemonicParsing="false" text="File">
+      <items>
+        <MenuItem mnemonicParsing="false" onAction="#quitter" text="Quitter">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator></MenuItem>
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Sauver/Charger">
+      <items>
+        <MenuItem mnemonicParsing="false" onAction="#sauvegarder" text="Sauvegarder" />
+            <MenuItem mnemonicParsing="false" onAction="#importer" text="Importer" />
+      </items>
+    </Menu>
+  </menus>
+</MenuBar>
