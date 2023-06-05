@@ -19,6 +19,8 @@
             <Label fx:id="pizzaBase" prefHeight="46.0" prefWidth="283.0" />
             <Label text="Ingrédients : " />
             <VBox fx:id="ingredientList" prefHeight="358.0" prefWidth="350.0" spacing="5.0" />
+            <Button mnemonicParsing="false" onAction="#ajoutIng" text="Ajouter Ingrédients Existant" />
+            <Button mnemonicParsing="false" onAction="#ajoutAutreIng" text="Ajouter Autre Ingrédients" />
          </children>
       </VBox>
    </right>

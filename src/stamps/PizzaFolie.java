@@ -14,6 +14,14 @@ public class PizzaFolie implements Iterable<String>{
         this.ajoutNosPizzas();
     }
 
+    public String premIng(){
+        return this.ingredients.get(0);
+    }
+
+    public ArrayList<String> getIngredients() {
+        return ingredients;
+    }
+
     public void ajouterPizzas(Pizza p){
         this.pizzas.add(p);
     }
@@ -49,6 +57,10 @@ public class PizzaFolie implements Iterable<String>{
                 }
             }
         }
+    }
+
+    public void ajouterIngredient(String ing){
+        this.ingredients.add(ing);
     }
 
     public Iterator<Pizza> pizzaIterator(){
